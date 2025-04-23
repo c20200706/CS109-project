@@ -114,6 +114,23 @@ public class GamePanel extends ListenerPanel {
         }
     }
 
+    public void animateMovement(BoxComponent box, Point newLocation) {
+        Timer timer = new Timer(10, e -> {
+            Point current = box.getLocation();
+            int dx = (newLocation.x - current.x) / 2;
+            int dy = (newLocation.y - current.y) / 2;
+
+            if (Math.abs(dx) < 2 && Math.abs(dy) < 2) {
+                box.setLocation(newLocation);
+                ((Timer)e.getSource()).stop();
+            } else {
+                box.setLocation(current.x + dx, current.y + dy);
+            }
+            repaint();
+        });
+        timer.start();
+    }
+   
     @Override
     public void doMoveRight() {
         System.out.println("Click VK_RIGHT");
